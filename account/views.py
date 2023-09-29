@@ -7,7 +7,7 @@ from account.models import Client
 
 logger = logging.getLogger(__name__)
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
@@ -29,8 +29,7 @@ def register(request):
 
 def authenticate(request):
     try:
-        user = models.Client.objects.get(email=request.POST.get('email'),password=request.POST.get('password'))
-        return render(request, 'index.html', {'success_message': 'User exists'})
-
+        user = models.Client.objects.get(email = request.POST.get('email'),password=request.POST.get('password'))
+        return render('user/dashboard.html',{'username':user.__getattribute__('name')})
     except ObjectDoesNotExist:
-        return render(request,'index.html',{'error_message':'User does not exist'})
+        return render('index.html',{'error_message':'User does not exist'})

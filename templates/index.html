@@ -24,6 +24,7 @@
         {{ login_success }}
         </div>
     {% endif %}
+
 <form action="{% url 'authentication' %}" method="post">
 {% csrf_token %}
   <div class="form-group">
