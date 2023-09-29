@@ -24,4 +24,7 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('register',views.register,name='register'),
     path('authenticate/',views.authenticate,name='authentication'),
+    path('dashboard/',views.dashboard,name='dashboard'),
+    path('user/account/',views.account_creation,name='account_creation'),
+    path('user/account/create',views.add_account,name='add_account')
 ]

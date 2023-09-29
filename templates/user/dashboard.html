@@ -4,10 +4,33 @@
 {% block title %}
     Dashboard
 {% endblock %}
-{% if username %}
 
-    {{ username }}
-{% endif %}
+
 {% block content %}
 
+{% if account_success%}
+   <div class="alert alert-success" role="alert">
+        {{ account_success }}
+        </div>
+{% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="{%  url 'account_creation' %}">Create an account <span class="sr-only"></span></a>
+      </li>
+             <li class="nav-item active">
+        <a class="nav-link" href="#">Log out<span class="sr-only"></span></a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+    </span>
+  </div>
+</nav>
 {% endblock %}
