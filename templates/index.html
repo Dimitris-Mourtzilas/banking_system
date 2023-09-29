@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login page
+{% endblock %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+        </div>
+    {% endif %}
+
+           {% if success_message %}
+        <div class="alert alert-success" role="alert">
+        {{ success_message }}
+        </div>
+    {% endif %}
+
+
+
+           {% if login_success %}
+        <div class="alert alert-success" role="alert">
+        {{ login_success }}
+        </div>
+    {% endif %}
+<form action="{% url 'authentication' %}" method="post">
+{% csrf_token %}
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+  </div>
+
+    <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Log in</button>
+<a href="{%  url 'register' %}" class="link link-primary">Not registered yet?</a>
+</form>
+
+{% endblock %}
