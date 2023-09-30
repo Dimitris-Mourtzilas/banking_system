@@ -25,6 +25,9 @@ urlpatterns = [
     path('register',views.register,name='register'),
     path('authenticate/',views.authenticate,name='authentication'),
     path('dashboard/',views.dashboard,name='dashboard'),
-    path('user/account/',views.account_creation,name='account_creation'),
-    path('user/account/create',views.add_account,name='add_account')
+    path('account/',views.create_an_account,name='account_creation'),
+    path('account/create',views.validate_account,name='validate_account'),
+    path('logout/',views.logout,name='logout'),
+    path('account/edit/?<int:id>',views.edit_account,name='edit_account'),
+    path('account/edit/validate/',views.validate_edit,name='validate'),
 ]

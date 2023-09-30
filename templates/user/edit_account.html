@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 
-
 {% block title %}
+    Edit Account
 {% endblock %}
 
 
 {% block content %}
-
-    <form action="{% url 'validate_account' %}" method="post">
+        <form action="{% url 'validate'%}" method="post">
 {% csrf_token %}
   <div class="form-group">
     <label for="date_created">Date</label>
@@ -23,5 +22,4 @@
 
   <button type="submit" class="btn btn-primary">Add account</button>
 </form>
-
 {% endblock %}

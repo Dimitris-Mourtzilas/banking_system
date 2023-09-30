@@ -39,20 +39,38 @@ def authenticate(request):
 
 
 def dashboard(request):
-    return render(request, 'user/dashboard.html')
+    print(Client.objects.filter(is_active=True).values()[0]['id'])
+    accounts = Account.objects.select_related('client').filter(client__is_active=True)
+    return render(request, 'user/dashboard.html', {'accounts': accounts})
 
 
-def account_creation(request):
+def create_an_account(request):
+    return render(request, 'user/account_creation.html', {'date': date.today()})
 
-    return render(request,'user/account_creation.html')
+
+def validate_account(request):
+    user = Client.objects.filter(is_active=True).values()
+    balance = request.POST.get('balance')
+    date_created = request.POST.get('date_created')
+    account = Account(date_created=date_created, balance=balance, client_id=user[0]['id'])
+    account.save()
+    return render(request, 'user/dashboard.html',
+                  {'acc_message': 'Successfully created account', 'accounts': Account.objects.select_related('client').filter(client__is_active=True)})
 
 
-def add_account(request):
+def logout(request):
+    cl = Client.objects.get(is_active=True)
+    cl.is_active = False
+    cl.save()
+    return redirect('index')
 
-    if request.method == "POST":
-        balance = request.POST.get('balance')
-        client_id = Client.objects.filter(is_active=True).values()
-        print(client_id[0]['id'])
-        account = Account(date_created=date.today(),balance=balance,client_id=client_id[0]['id'])
-        account.save()
-        return render(request,'user/dashboard.html',{'account_success':'Created new account'})
+def edit_account(request):
+
+    return render(request,'user/edit_account.html')
+
+
+
+
+def validate_edit(request):
+        account = Account.objects.get('id',request.POST.get('id'))
+        print(account)

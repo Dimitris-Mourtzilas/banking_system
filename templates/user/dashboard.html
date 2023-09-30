@@ -8,29 +8,63 @@
 
 {% block content %}
 
-{% if account_success%}
+{% if acc_message%}
    <div class="alert alert-success" role="alert">
-        {{ account_success }}
+        {{ acc_message }}
         </div>
 {% endif %}
+
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
-      </li>
         <li class="nav-item active">
         <a class="nav-link" href="{%  url 'account_creation' %}">Create an account <span class="sr-only"></span></a>
       </li>
              <li class="nav-item active">
-        <a class="nav-link" href="#">Log out<span class="sr-only"></span></a>
+        <a class="nav-link" href="{% url 'logout' %}">Log out<span class="sr-only"></span></a>
       </li>
     </ul>
     <span class="navbar-text">
     </span>
   </div>
 </nav>
+    {% if accounts %}
+    <table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>ID</th>
+        <th>Balance</th>
+        <th>Date created</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for account in accounts %}
+    <tr>
+    <td>
+        {{ account.id }}
+    </td>
+    <td>
+        {{ account.balance }}
+    </td>
+        <td>
+            {{ account.date_created }}
+        </td>
+    <td>
+        <a href="{% url 'edit_account' account.id %}" class="btn btn-secondary">Edit</a>
+{#        <button class="btn btn-secondary" onclick="{% url 'delete_account' %}">Delete</button>#}
+
+    </td>
+    </tr>
+       {% endfor %}
+    </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-secondary" role="alert">
+    <span> No account listed</span>
+    </div>
+    {% endif %}
 {% endblock %}
